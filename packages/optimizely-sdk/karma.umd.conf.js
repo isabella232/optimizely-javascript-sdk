@@ -29,7 +29,7 @@ module.exports = function(config) {
     files: [
       './node_modules/promise-polyfill/dist/polyfill.min.js',
       './dist/optimizely.browser.umd.min.js',
-      './temp/index.browser.umdtests.js'
+      './lib/index.browser.umdtests.cjs.js'
     ],
   });
 };
