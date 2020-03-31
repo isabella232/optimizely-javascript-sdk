@@ -26,8 +26,6 @@ function exec(command, extraEnv) {
   });
 }
 
-const umdName = "optimizelySdk";
-
 console.log("\nBuilding CommonJS modules...");
 exec(`rollup -c scripts/config.js -i lib/index.node.js -f cjs -o dist/optimizely.node.js`);
 
