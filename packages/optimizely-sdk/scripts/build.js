@@ -29,8 +29,8 @@ function exec(command, extraEnv) {
 const umdName = "optimizelySdk";
 
 console.log("\nBuilding CommonJS modules...");
-exec(`rollup -c scripts/config.js -i lib/index.node.js -f cjs -o dist/optimizely.node.min.js`);
+exec(`rollup -c scripts/config.js -i lib/index.node.js -f cjs -o dist/optimizely.node.js`);
 
-exec(`rollup -c scripts/config.js -i lib/index.browser.js -f cjs -o dist/optimizely.browser.min.js`);
+exec(`rollup -c scripts/config.js -i lib/index.browser.js -f cjs -o dist/optimizely.browser.js`);
 
-exec(`rollup -c scripts/config.js -i lib/index.react_native.js -f cjs -o dist/optimizely.react_native.min.js`);
+exec(`rollup -c scripts/config.js -i lib/index.react_native.js -f cjs -o dist/optimizely.react_native.js`);
