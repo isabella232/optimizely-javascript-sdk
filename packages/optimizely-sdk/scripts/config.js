@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+const { terser } = require('rollup-plugin-terser');
 const commonjs = require('rollup-plugin-commonjs');
 const resolve = require('rollup-plugin-node-resolve');
 const packageDeps = require('../package.json').dependencies || {};
@@ -43,7 +44,7 @@ function getPlugins (){
         },
     }),
   ];
-
+  plugins.push(terser());
   return plugins;
 }
 

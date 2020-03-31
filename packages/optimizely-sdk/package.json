@@ -2,9 +2,9 @@
   "name": "@optimizely/optimizely-sdk",
   "version": "3.6.0-alpha.1",
   "description": "JavaScript SDK for Optimizely X Full Stack",
-  "main": "dist/optimizely.node.js",
-  "browser": "dist/optimizely.browser.js",
-  "react-native": "dist/optimizely.react_native.js",
+  "main": "dist/optimizely.node.min.js",
+  "browser": "dist/optimizely.browser.min.js",
+  "react-native": "dist/optimizely.react_native.min.js",
   "typings": "lib/index.d.ts",
   "scripts": {
     "test": "mocha ./lib/*.tests.js ./lib/**/*.tests.js ./lib/**/**/*tests.js --recursive --exit --require esm --require lib/tests/exit_on_unhandled_rejection.js",
