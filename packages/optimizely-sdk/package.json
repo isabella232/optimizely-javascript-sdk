@@ -11,6 +11,7 @@
     "test-xbrowser": "karma start karma.bs.conf.js --single-run",
     "test-umdbrowser": "npm run build-browser-umd && karma start karma.umd.conf.js --single-run",
     "build-browser-umd": "rm -rf dist && webpack",
+    "rollup": "rollup -c",
     "test-ci": "npm run test-xbrowser && npm run test-umdbrowser",
     "lint": "eslint 'lib/**/*.js'",
     "cover": "istanbul cover _mocha ./lib/*.tests.js ./lib/**/*.tests.js ./lib/**/**/*tests.js",
@@ -60,6 +61,7 @@
     "mocha-lcov-reporter": "^1.3.0",
     "nock": "^7.7.2",
     "promise-polyfill": "8.1.0",
+    "rollup": "^2.3.2",
     "sinon": "^2.3.1",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.1.2"
