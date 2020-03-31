@@ -22,7 +22,7 @@ function getExternals() {
 }
 
 function getPlugins (){
-  return [
+  const plugins = [
     resolve({
       browser: true,
     }),
@@ -43,6 +43,8 @@ function getPlugins (){
         },
     }),
   ];
+
+  return plugins;
 }
 
 module.exports = {
