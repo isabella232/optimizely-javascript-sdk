@@ -85,7 +85,7 @@ export var createInstance = function(config) {
       config.skipJSONValidation = true;
     }
 
-    let eventDispatcher;
+    var eventDispatcher;
     // prettier-ignore
     if (config.eventDispatcher == null) { // eslint-disable-line eqeqeq
       // only wrap the event dispatcher with pending events retry if the user didnt override
