@@ -54,7 +54,7 @@ export var setLogLevel = sdkLogging.setLogLevel;
  * @param {Object} config.eventFlushInterval
  * @return {Object} the Optimizely object
  */
-export var createInstance = (config) => {
+export var createInstance = function(config) {
   try {
     config = config || {};
 
@@ -153,7 +153,7 @@ export var createInstance = (config) => {
   }
 };
 
-export var __internalResetRetryState = () => {
+export var __internalResetRetryState = function() {
   hasRetriedEvents = false;
 };
 
