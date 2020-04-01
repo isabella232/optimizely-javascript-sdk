@@ -34,12 +34,12 @@ var DEFAULT_EVENT_FLUSH_INTERVAL = 1000; // Unit is ms, default is 1s
 
 var hasRetriedEvents = false;
 
-export const logging = loggerPlugin;
-export const errorHandler = defaultErrorHandler;
-export const eventDispatcher = defaultEventDispatcher;
-export const enums = utilEnums;
-export const setLogger = sdkLogging.setLogHandler;
-export const setLogLevel = sdkLogging.setLogLevel;
+export var logging = loggerPlugin;
+export var errorHandler = defaultErrorHandler;
+export var eventDispatcher = defaultEventDispatcher;
+export var enums = utilEnums;
+export var setLogger = sdkLogging.setLogHandler;
+export var setLogLevel = sdkLogging.setLogLevel;
 
 /**
  * Creates an instance of the Optimizely class
@@ -54,7 +54,7 @@ export const setLogLevel = sdkLogging.setLogLevel;
  * @param {Object} config.eventFlushInterval
  * @return {Object} the Optimizely object
  */
-export const createInstance = (config) => {
+export var createInstance = (config) => {
   try {
     config = config || {};
 
@@ -153,7 +153,7 @@ export const createInstance = (config) => {
   }
 };
 
-export const __internalResetRetryState = () => {
+export var __internalResetRetryState = () => {
   hasRetriedEvents = false;
 };
 
