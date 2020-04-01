@@ -21,7 +21,7 @@ function getExternals() {
   return ['https', 'http', 'url'].concat(Object.keys(packageDeps));
 }
 
-function getPlugins (){
+function getPlugins () {
   const plugins = [
     resolve({
       browser: true,
