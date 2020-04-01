@@ -16,7 +16,7 @@
 import * as logging from '@optimizely/js-sdk-logging';
 import configValidator from './utils/config_validator';
 import Optimizely from './optimizely';
-import optimizelyFactory from './index.browser';
+import optimizelyFactory from './index.browser.cjs';
 import packageJSON from '../package.json';
 import testData from './tests/test_data';
 import * as eventProcessor from '@optimizely/js-sdk-event-processor';
