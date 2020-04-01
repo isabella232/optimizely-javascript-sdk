@@ -28,9 +28,9 @@ var logger = sdkLogging.getLogger();
 sdkLogging.setLogHandler(loggerPlugin.createLogger());
 sdkLogging.setLogLevel(sdkLogging.LogLevel.INFO);
 
-const MODULE_NAME = 'INDEX_BROWSER';
-const DEFAULT_EVENT_BATCH_SIZE = 10;
-const DEFAULT_EVENT_FLUSH_INTERVAL = 1000; // Unit is ms, default is 1s
+var MODULE_NAME = 'INDEX_BROWSER';
+var DEFAULT_EVENT_BATCH_SIZE = 10;
+var DEFAULT_EVENT_FLUSH_INTERVAL = 1000; // Unit is ms, default is 1s
 
 var hasRetriedEvents = false;
 
@@ -133,7 +133,7 @@ export const createInstance = (config) => {
 
     try {
       if (typeof window.addEventListener === 'function') {
-        const unloadEvent = 'onpagehide' in window ? 'pagehide' : 'unload';
+        var unloadEvent = 'onpagehide' in window ? 'pagehide' : 'unload';
         window.addEventListener(
           unloadEvent,
           function() {
