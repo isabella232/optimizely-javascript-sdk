@@ -27,8 +27,8 @@ function exec(command, extraEnv) {
 }
 
 console.log("\nBuilding CommonJS modules...");
-exec("./node_modules/.bin/rollup -c scripts/config.js -i lib/index.node.js -f cjs -o dist/optimizely.node.js");
+exec("rollup -c scripts/config.js -i lib/index.node.js -f cjs -o dist/optimizely.node.js");
 
-exec("./node_modules/.bin/rollup -c scripts/config.js -i lib/index.browser.js -f cjs -o dist/optimizely.browser.js");
+exec("rollup -c scripts/config.js -i lib/index.browser.js -f cjs -o dist/optimizely.browser.js");
 
-exec("./node_modules/.bin/rollup -c scripts/config.js -i lib/index.react_native.js -f cjs -o dist/optimizely.react_native.js");
+exec("rollup -c scripts/config.js -i lib/index.react_native.js -f cjs -o dist/optimizely.react_native.js");
