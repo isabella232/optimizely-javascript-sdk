@@ -8,7 +8,9 @@ export default {
     format: 'es'
   },
   plugins: [
-    resolve(),
+    resolve({
+      browser: true
+    }),
     commonjs()
   ]
 }
