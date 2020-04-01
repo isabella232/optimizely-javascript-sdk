@@ -100,6 +100,7 @@ module.exports = {
   // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
   preprocessors: {
     './lib/**/*tests.js': ['webpack'],
+    './lib/**/*tests.cjs.js': ['webpack']
   },
 
   // test results reporter to use
