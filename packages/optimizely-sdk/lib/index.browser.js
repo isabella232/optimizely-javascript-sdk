@@ -24,7 +24,7 @@ import loggerPlugin from './plugins/logger';
 import Optimizely from './optimizely';
 import eventProcessorConfigValidator from './utils/event_processor_config_validator';
 
-const logger = sdkLogging.getLogger();
+var logger = sdkLogging.getLogger();
 sdkLogging.setLogHandler(loggerPlugin.createLogger());
 sdkLogging.setLogLevel(sdkLogging.LogLevel.INFO);
 
@@ -32,7 +32,7 @@ const MODULE_NAME = 'INDEX_BROWSER';
 const DEFAULT_EVENT_BATCH_SIZE = 10;
 const DEFAULT_EVENT_FLUSH_INTERVAL = 1000; // Unit is ms, default is 1s
 
-let hasRetriedEvents = false;
+var hasRetriedEvents = false;
 
 export const logging = loggerPlugin;
 export const errorHandler = defaultErrorHandler;
@@ -129,7 +129,7 @@ export const createInstance = (config) => {
       config.eventFlushInterval = DEFAULT_EVENT_FLUSH_INTERVAL;
     }
 
-    const optimizely = new Optimizely(config);
+    var optimizely = new Optimizely(config);
 
     try {
       if (typeof window.addEventListener === 'function') {
