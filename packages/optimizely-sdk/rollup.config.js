@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const commonjs = require('rollup-plugin-commonjs');
-const resolve = require('rollup-plugin-node-resolve');
-const packageDeps = require('../package.json').dependencies || {};
+import commonjs from 'rollup-plugin-commonjs';
+import resolve from 'rollup-plugin-node-resolve'
+import { terser } from  'rollup-plugin-terser'
+import { dependencies as packageDeps } from './package.json';
 
 function getExternals() {
-  return ['https', 'http', 'url'].concat(Object.keys(packageDeps));
+  return ['https', 'http', 'url'].concat(Object.keys(packageDeps || {}));
 }
 
-function getPlugins () {
+function getPlugins() {
   const plugins = [
     resolve({
       browser: true,
@@ -42,23 +43,34 @@ function getPlugins () {
           ]
         },
     }),
+    terser(),
   ];
-
   return plugins;
 }
 
-module.exports = {
-  plugins: getPlugins(),
-  external: getExternals(),
-  output: {
-    globals: {
-      '@optimizely/js-sdk-logging': 'logging',
-      '@optimizely/js-sdk-event-processor': 'eventProcessor',
-      '@optimizely/js-sdk-datafile-manager': 'datafileManager',
-      '@optimizely/js-sdk-utils': 'jsSdkUtils',
-      murmurhash: 'murmurhash',
-      uuid: 'v4',
-    },
-    exports: 'named',
-  }
+function getConfigForPlatform(platform) {
+  return {
+    plugins: getPlugins(),
+    external: getExternals(),
+    input: 'lib/index.' + platform + '.js',
+    output: {
+      globals: {
+        '@optimizely/js-sdk-logging': 'logging',
+        '@optimizely/js-sdk-event-processor': 'eventProcessor',
+        '@optimizely/js-sdk-datafile-manager': 'datafileManager',
+        '@optimizely/js-sdk-utils': 'jsSdkUtils',
+        murmurhash: 'murmurhash',
+        uuid: 'v4',
+      },
+      exports: 'named',
+      format: 'cjs',
+      file: 'dist/optimizely.' + platform + '.min.js',
+    }
+  };
 }
+
+export default [
+  getConfigForPlatform('node'),
+  getConfigForPlatform('browser'),
+  getConfigForPlatform('react_native'),
+]
