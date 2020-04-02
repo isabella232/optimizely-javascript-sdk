@@ -16,25 +16,12 @@
 import commonjs from 'rollup-plugin-commonjs';
 import resolve from 'rollup-plugin-node-resolve'
 import { terser } from  'rollup-plugin-terser'
-import { dependencies as packageDeps } from './package.json';
-
-function getExternals() {
-  return ['https', 'http', 'url'].concat(Object.keys(packageDeps || {}));
-}
-
-function getPlugins() {
-  const plugins = [
-    resolve(),
-    commonjs(),
-    terser(),
-  ];
-  return plugins;
-}
+import { dependencies } from './package.json';
 
 function getConfigForPlatform(platform) {
   return {
-    plugins: getPlugins(),
-    external: getExternals(),
+    plugins: [resolve(), commonjs(), terser()],
+    external: ['https', 'http', 'url'].concat(Object.keys(dependencies || {})),
     input: 'lib/index.' + platform + '.js',
     output: {
       exports: 'named',
