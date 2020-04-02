@@ -73,14 +73,14 @@ const getPlugins = (env) => {
 const getConfigForUMD = (env) => {
   return {
     plugins: getPlugins(env),
-    external: ['https', 'http', 'url'].concat(Object.keys(dependencies || {})),
+    //external: ['https', 'http', 'url'].concat(Object.keys(dependencies || {})),
     input: 'lib/index.browser.js',
     output: {
       name: 'optimizelySdk',
       format: 'umd',
       file: `dist/optimizely.browser.umd${ env === 'production' ? '.min' : '' }.js`,
       exports: 'named',
-      globals: globals,
+      //globals: globals,
     },
   }
 };

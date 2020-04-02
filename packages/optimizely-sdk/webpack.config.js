@@ -5,7 +5,7 @@ module.exports = [
     entry: path.resolve(__dirname, 'lib/index.browser.js'),
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'optimizely.browser.umd.js',
+      filename: 'optimizely.browser.umd.webpack.js',
       library: 'optimizelySdk',
       libraryTarget: 'umd',
     },
@@ -20,7 +20,7 @@ module.exports = [
     entry: path.resolve(__dirname, 'lib/index.browser.js'),
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'optimizely.browser.umd.min.js',
+      filename: 'optimizely.browser.umd.webpack.min.js',
       library: 'optimizelySdk',
       libraryTarget: 'umd',
     },
