@@ -24,25 +24,8 @@ function getExternals() {
 
 function getPlugins() {
   const plugins = [
-    resolve({
-      browser: true,
-    }),
-    commonjs({
-      namedExports:
-        {
-          '@optimizely/js-sdk-logging': [
-            'getLogger',
-            'setLogLevel',
-            'LogLevel',
-            'setLogHandler',
-            'setErrorHandler',
-            'getErrorHandler'
-          ],
-          '@optimizely/js-sdk-event-processor': [
-            'LocalStoragePendingEventsDispatcher'
-          ]
-        },
-    }),
+    resolve(),
+    commonjs(),
     terser(),
   ];
   return plugins;
@@ -54,14 +37,6 @@ function getConfigForPlatform(platform) {
     external: getExternals(),
     input: 'lib/index.' + platform + '.js',
     output: {
-      globals: {
-        '@optimizely/js-sdk-logging': 'logging',
-        '@optimizely/js-sdk-event-processor': 'eventProcessor',
-        '@optimizely/js-sdk-datafile-manager': 'datafileManager',
-        '@optimizely/js-sdk-utils': 'jsSdkUtils',
-        murmurhash: 'murmurhash',
-        uuid: 'v4',
-      },
       exports: 'named',
       format: 'cjs',
       file: 'dist/optimizely.' + platform + '.min.js',
