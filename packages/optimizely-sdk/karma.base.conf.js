@@ -20,11 +20,7 @@ module.exports = {
   basePath: '',
 
   //plugins
-  plugins: ['karma-mocha', 'karma-webpack', require('karma-browserstack-launcher')],
-
-  webpack: {
-    mode: 'production',
-  },
+  plugins: ['karma-mocha', 'karma-rollup-preprocessor', require('karma-browserstack-launcher')],
 
   //browserStack setup
   browserStack: {
@@ -99,8 +95,21 @@ module.exports = {
   // preprocess matching files before serving them to the browser
   // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
   preprocessors: {
-    './lib/**/*tests.js': ['webpack'],
-    './lib/**/*tests.cjs.js': ['webpack']
+    './lib/**/*tests.js': ['rollup'],
+  },
+
+  rollupPreprocessor: {
+    plugins: [
+      require('@rollup/plugin-node-resolve')(),
+      require('@rollup/plugin-commonjs')(),
+      require('@rollup/plugin-json')(),
+      require('rollup-plugin-babel')()
+    ],
+    output: {
+      format: 'umd',
+      name: 'optimizelySdk',
+      sourcemap: 'inline',
+    },
   },
 
   // test results reporter to use

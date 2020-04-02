@@ -49,15 +49,6 @@ const namedExports = {
   ]
 };
 
-const globals = {
-  '@optimizely/js-sdk-logging': 'logging',
-  '@optimizely/js-sdk-event-processor': 'eventProcessor',
-  '@optimizely/js-sdk-datafile-manager': 'datafileManager',
-  '@optimizely/js-sdk-utils': 'jsSdkUtils',
-  murmurhash: 'murmurhash',
-  uuid: 'v4',
-};
-
 const getPlugins = (env) => {
   const plugins = [
     resolve({ browser: true }),
