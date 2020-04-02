@@ -120,6 +120,7 @@ module.exports = {
     ],
     output: {
       format: 'umd',
+      file: 'dist/optimizely.browser.umd.min.js',
       name: 'optimizelySdk',
       sourcemap: 'inline',
     },
