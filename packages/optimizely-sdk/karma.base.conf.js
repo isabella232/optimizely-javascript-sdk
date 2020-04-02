@@ -100,10 +100,23 @@ module.exports = {
 
   rollupPreprocessor: {
     plugins: [
-      require('@rollup/plugin-node-resolve')(),
-      require('@rollup/plugin-commonjs')(),
+      require('@rollup/plugin-node-resolve')({ browser: true }),
+      require('@rollup/plugin-commonjs')({ namedExports: {
+          '@optimizely/js-sdk-logging': [
+            'getLogger',
+            'setLogLevel',
+            'LogLevel',
+            'setLogHandler',
+            'setErrorHandler',
+            'getErrorHandler'
+          ],
+          '@optimizely/js-sdk-event-processor': [
+            'LocalStoragePendingEventsDispatcher',
+            'LogTierV1EventProcessor',
+          ]
+        }}),
       require('@rollup/plugin-json')(),
-      require('rollup-plugin-babel')()
+      require('rollup-plugin-babel')({ exclude: 'node_modules/**' }),
     ],
     output: {
       format: 'umd',
