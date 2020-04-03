@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+const { devDependencies } = require('./package');
 // Karma base configuration
 module.exports = {
   // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -99,6 +99,7 @@ module.exports = {
   },
 
   rollupPreprocessor: {
+    external: Object.keys(devDependencies || {}),
     plugins: [
       require('@rollup/plugin-node-resolve')({ browser: true }),
       require('@rollup/plugin-commonjs')({ namedExports: {
@@ -122,6 +123,10 @@ module.exports = {
       format: 'umd',
       name: 'optimizelySdk',
       sourcemap: 'inline',
+      globals: {
+        chai: 'chai',
+        sinon: 'sinon',
+      }
     },
   },
 
