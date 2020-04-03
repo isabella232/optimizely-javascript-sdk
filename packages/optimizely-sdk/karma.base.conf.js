@@ -96,7 +96,6 @@ module.exports = {
   // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
   preprocessors: {
     './lib/**/*tests.js': ['rollup'],
-    './lib/index.browser.js': ['rollup'],
   },
 
   rollupPreprocessor: {

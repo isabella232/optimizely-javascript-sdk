@@ -23,7 +23,6 @@ const getConfigForPlatform = (platform) => {
     plugins: [
       resolve(),
       commonjs(),
-      terser()
     ],
     external: ['https', 'http', 'url'].concat(Object.keys(dependencies || {})),
     input: `lib/index.${platform}.js`,
@@ -31,6 +30,7 @@ const getConfigForPlatform = (platform) => {
       exports: 'named',
       format: 'cjs',
       file: `dist/optimizely.${platform}.min.js`,
+      plugins: [terser()]
     }
   };
 };
@@ -49,27 +49,19 @@ const namedExports = {
   ]
 };
 
-const getPlugins = (env) => {
-  const plugins = [
-    resolve({ browser: true }),
-    commonjs({ namedExports: namedExports }),
-  ];
-
-  if (env === 'production') {
-    plugins.push(terser());
-  }
-  return plugins;
-}
-
 const getConfigForUMD = (env) => {
   return {
-    plugins: getPlugins(env),
+    plugins: [
+      resolve({ browser: true }),
+      commonjs({ namedExports: namedExports }),
+    ],
     input: 'lib/index.browser.js',
     output: {
       name: 'optimizelySdk',
       format: 'umd',
       file: `dist/optimizely.browser.umd${ env === 'production' ? '.min' : '' }.js`,
       exports: 'named',
+      plugins: [ env === 'production' ? terser() : null ]
     },
   }
 };
