@@ -99,7 +99,6 @@ module.exports = {
   },
 
   rollupPreprocessor: {
-    external: Object.keys(devDependencies || {}),
     plugins: [
       require('@rollup/plugin-node-resolve')({ browser: true }),
       require('@rollup/plugin-commonjs')({ namedExports: {
@@ -123,10 +122,6 @@ module.exports = {
       format: 'umd',
       name: 'optimizelySdk',
       sourcemap: 'inline',
-      globals: {
-        chai: 'chai',
-        sinon: 'sinon',
-      }
     },
   },
 
