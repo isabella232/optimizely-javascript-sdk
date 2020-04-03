@@ -100,6 +100,7 @@ module.exports = {
 
   rollupPreprocessor: {
     plugins: [
+      require('rollup-plugin-node-globals')(),
       require('@rollup/plugin-node-resolve')({ browser: true }),
       require('@rollup/plugin-commonjs')({ namedExports: {
           '@optimizely/js-sdk-logging': [
