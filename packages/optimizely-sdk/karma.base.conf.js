@@ -20,7 +20,7 @@ module.exports = {
   basePath: '',
 
   //plugins
-  plugins: ['karma-mocha', 'karma-rollup-preprocessor', require('karma-browserstack-launcher')],
+  plugins: ['karma-mocha', 'karma-sinon', 'karma-rollup-preprocessor', require('karma-browserstack-launcher')],
 
   //browserStack setup
   browserStack: {
@@ -87,7 +87,7 @@ module.exports = {
 
   // frameworks to use
   // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-  frameworks: ['mocha'],
+  frameworks: ['mocha', 'sinon'],
 
   // list of files to exclude
   exclude: [],
@@ -101,8 +101,7 @@ module.exports = {
   rollupPreprocessor: {
     plugins: [
       require('@rollup/plugin-node-resolve')({ browser: true }),
-      require('@rollup/plugin-commonjs')(),
-      /*require('@rollup/plugin-commonjs')({ namedExports: {
+      require('@rollup/plugin-commonjs')({ namedExports: {
           '@optimizely/js-sdk-logging': [
             'getLogger',
             'setLogLevel',
@@ -115,7 +114,7 @@ module.exports = {
             'LocalStoragePendingEventsDispatcher',
             'LogTierV1EventProcessor',
           ]
-      }}),*/
+      }}),
       require('@rollup/plugin-json')({ exclude: 'node_modules/**' }),
       require('rollup-plugin-babel')({ exclude: 'node_modules/**' }),
     ],
