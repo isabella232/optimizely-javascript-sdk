@@ -96,6 +96,7 @@ module.exports = {
   // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
   preprocessors: {
     './lib/**/*tests.js': ['rollup'],
+    './lib/index.browser.js': ['rollup'],
   },
 
   rollupPreprocessor: {
@@ -115,7 +116,7 @@ module.exports = {
             'LogTierV1EventProcessor',
           ]
         }}),
-      require('@rollup/plugin-json')(),
+      require('@rollup/plugin-json')({ exclude: 'node_modules/**' }),
       require('rollup-plugin-babel')({ exclude: 'node_modules/**' }),
     ],
     output: {

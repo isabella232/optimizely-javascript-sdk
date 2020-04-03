@@ -15,7 +15,7 @@
     "lint": "eslint 'lib/**/*.js'",
     "cover": "istanbul cover _mocha ./lib/*.tests.js ./lib/**/*.tests.js ./lib/**/**/*tests.js",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
-    "prepublishOnly": "rm -rf dist && npm run build && npm run build && npm test && npm run test-xbrowser && npm run test-umdbrowser"
+    "prepublishOnly": "rm -rf dist && npm run build && npm test && npm run test-xbrowser && npm run test-umdbrowser"
   },
   "repository": {
     "type": "git",
@@ -42,9 +42,6 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.7",
-    "@babel/preset-env": "^7.8.7",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",
