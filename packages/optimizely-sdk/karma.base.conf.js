@@ -20,7 +20,7 @@ module.exports = {
   basePath: '',
 
   //plugins
-  plugins: ['karma-mocha', 'karma-sinon', 'karma-rollup-preprocessor', require('karma-browserstack-launcher')],
+  plugins: ['karma-mocha', 'karma-rollup-preprocessor', require('karma-browserstack-launcher')],
 
   //browserStack setup
   browserStack: {
@@ -87,7 +87,7 @@ module.exports = {
 
   // frameworks to use
   // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-  frameworks: ['mocha', 'sinon'],
+  frameworks: ['mocha'],
 
   // list of files to exclude
   exclude: [],
