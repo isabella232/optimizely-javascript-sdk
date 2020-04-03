@@ -54,7 +54,7 @@ describe('javascript-sdk', function() {
         sinon.stub(configValidator, 'validate');
 
         xhr = sinon.useFakeXMLHttpRequest();
-        window.XMLHttpRequest = xhr;
+        global.XMLHttpRequest = xhr;
         requests = [];
         xhr.onCreate = function(req) {
           requests.push(req);
