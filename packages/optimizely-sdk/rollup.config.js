@@ -4,7 +4,7 @@ import resolve from '@rollup/plugin-node-resolve'
 export default {
   input: 'lib/index.browser.js',
   output: {
-    file: 'dist/optimizely.github.js',
+    file: 'dist/optimizely.module.js',
     format: 'es'
   },
   plugins: [
