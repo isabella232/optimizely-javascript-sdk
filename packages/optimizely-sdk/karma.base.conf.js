@@ -117,6 +117,7 @@ module.exports = {
       }}),
       require('@rollup/plugin-json')({ exclude: 'node_modules/**' }),
       require('rollup-plugin-babel')({ exclude: 'node_modules/**' }),
+      require('rollup-plugin-stub')(),
     ],
     output: {
       format: 'umd',

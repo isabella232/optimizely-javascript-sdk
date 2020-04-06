@@ -1,6 +1,5 @@
 {
   "presets": [
     ["@babel/env", {"modules": false}]
-  ],
-  "plugins": ["rewire-exports"]
+  ]
 }
