@@ -157,10 +157,11 @@ describe('javascript-sdk/react-native', function() {
 
       describe('when passing in logLevel', function() {
         beforeEach(function() {
-          Object.defineProperty(logging, 'setLogLevel', {
-            writable: true,
-            value: sinon.stub()
-          });
+          sinon.stub(logging, 'setLogLevel');
+        });
+
+        afterEach(function() {
+          logging.setLogLevel.restore();
         });
 
         it('should call logging.setLogLevel', function() {
