@@ -359,11 +359,10 @@ describe('javascript-sdk', function() {
 
       describe('when passing in logLevel', function() {
         beforeEach(function() {
-          sinon.stub(logging, 'setLogLevel');
-        });
-
-        afterEach(function() {
-          logging.setLogLevel.restore();
+          Object.defineProperty(logging, 'setLogLevel', {
+            writable: true,
+            value: sinon.stub()
+          });
         });
 
         it('should call logging.setLogLevel', function() {

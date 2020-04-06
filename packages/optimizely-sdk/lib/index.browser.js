@@ -13,27 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {
-  getLogger,
-  setLogHandler,
-  setLogLevel,
-  LogLevel,
-  setErrorHandler,
-  getErrorHandler,
-} from '@optimizely/js-sdk-logging';
+import * as sdkLogging from '@optimizely/js-sdk-logging';
 import fns from './utils/fns';
 import configValidator from './utils/config_validator';
 import defaultErrorHandler from './plugins/error_handler';
 import defaultEventDispatcher from './plugins/event_dispatcher/index.browser';
 import utilEnums from './utils/enums';
-import { LocalStoragePendingEventsDispatcher } from '@optimizely/js-sdk-event-processor';
+import * as eventProcessor from '@optimizely/js-sdk-event-processor';
 import loggerPlugin from './plugins/logger';
 import Optimizely from './optimizely';
 import eventProcessorConfigValidator from './utils/event_processor_config_validator';
 
-var logger = getLogger();
-setLogHandler(loggerPlugin.createLogger());
-setLogLevel(LogLevel.INFO);
+var logger = sdkLogging.getLogger();
+sdkLogging.setLogHandler(loggerPlugin.createLogger());
+sdkLogging.setLogLevel(sdkLogging.LogLevel.INFO);
 
 var MODULE_NAME = 'INDEX_BROWSER';
 var DEFAULT_EVENT_BATCH_SIZE = 10;
@@ -45,8 +38,8 @@ export var logging = loggerPlugin;
 export var errorHandler = defaultErrorHandler;
 export var eventDispatcher = defaultEventDispatcher;
 export var enums = utilEnums;
-export var setLogger = setLogHandler;
-export { setLogLevel };
+export var setLogger = sdkLogging.setLogHandler;
+export var setLogLevel = sdkLogging.setLogLevel;
 
 /**
  * Creates an instance of the Optimizely class
@@ -67,15 +60,15 @@ export var createInstance = function(config) {
 
     // TODO warn about setting per instance errorHandler / logger / logLevel
     if (config.errorHandler) {
-      setErrorHandler(config.errorHandler);
+      sdkLogging.setErrorHandler(config.errorHandler);
     }
     if (config.logger) {
-      setLogHandler(config.logger);
+      sdkLogging.setLogHandler(config.logger);
       // respect the logger's shouldLog functionality
-      setLogLevel(LogLevel.NOTSET);
+      sdkLogging.setLogLevel(sdkLogging.LogLevel.NOTSET);
     }
     if (config.logLevel !== undefined) {
-      setLogLevel(config.logLevel);
+      sdkLogging.setLogLevel(config.logLevel);
     }
 
     try {
@@ -96,7 +89,7 @@ export var createInstance = function(config) {
     // prettier-ignore
     if (config.eventDispatcher == null) { // eslint-disable-line eqeqeq
       // only wrap the event dispatcher with pending events retry if the user didnt override
-      eventDispatcher = new LocalStoragePendingEventsDispatcher({
+      eventDispatcher = new eventProcessor.LocalStoragePendingEventsDispatcher({
         eventDispatcher: defaultEventDispatcher,
       });
 
@@ -119,7 +112,7 @@ export var createInstance = function(config) {
         eventDispatcher: eventDispatcher,
         // always get the OptimizelyLogger facade from logging
         logger: logger,
-        errorHandler: getErrorHandler(),
+        errorHandler: sdkLogging.getErrorHandler(),
       }
     );
 
