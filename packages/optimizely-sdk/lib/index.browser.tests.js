@@ -360,7 +360,7 @@ describe('javascript-sdk', function() {
       describe('when passing in logLevel', function() {
         beforeEach(function() {
           Object.defineProperty(logging, 'setLogLevel', {
-            writable: true,
+            configurable: true,
             value: sinon.stub()
           });
         });
