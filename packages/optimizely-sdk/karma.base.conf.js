@@ -115,9 +115,7 @@ module.exports = {
             'LocalStoragePendingEventsDispatcher',
             'LogTierV1EventProcessor',
           ]
-        },
-        ignore: [ '@optimizely/js-sdk-logging', '@optimizely/js-sdk-event-processor' ]
-      }),
+      }}),
       require('rollup-plugin-babel')({ exclude: 'node_modules/**' }),
     ],
     output: {
