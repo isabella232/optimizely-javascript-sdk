@@ -359,11 +359,11 @@ describe('javascript-sdk', function() {
 
       describe('when passing in logLevel', function() {
         beforeEach(function() {
-          Object.defineProperty(logging, 'setLogLevel', {
-            writable: true,
-            configurable: true,
-            value: sinon.stub()
-          });
+          sinon.stub(logging, 'setLogLevel');
+        });
+
+        afterEach(function() {
+          logging.setLogLevel.restore();
         });
 
         it('should call logging.setLogLevel', function() {
@@ -378,11 +378,11 @@ describe('javascript-sdk', function() {
 
       describe('when passing in logger', function() {
         beforeEach(function() {
-          Object.defineProperty(logging, 'setLogHandler', {
-            writable: true,
-            configurable: true,
-            value: sinon.stub()
-          });
+          sinon.stub(logging, 'setLogHandler');
+        });
+
+        afterEach(function() {
+          logging.setLogHandler.restore();
         });
 
         it('should call logging.setLogHandler with the supplied logger', function() {
