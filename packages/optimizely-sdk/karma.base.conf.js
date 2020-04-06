@@ -100,6 +100,7 @@ module.exports = {
 
   rollupPreprocessor: {
     plugins: [
+      require('@rollup/plugin-json')({ exclude: 'node_modules/**' }),
       require('@rollup/plugin-node-resolve')({ browser: true }),
       require('@rollup/plugin-commonjs')({ namedExports: {
           '@optimizely/js-sdk-logging': [
@@ -114,14 +115,16 @@ module.exports = {
             'LocalStoragePendingEventsDispatcher',
             'LogTierV1EventProcessor',
           ]
-      }}),
-      require('@rollup/plugin-json')({ exclude: 'node_modules/**' }),
+        },
+        ignore: [ '@optimizely/js-sdk-logging', '@optimizely/js-sdk-event-processor' ]
+      }),
       require('rollup-plugin-babel')({ exclude: 'node_modules/**' }),
     ],
     output: {
       format: 'umd',
       name: 'optimizelySdk',
       sourcemap: 'inline',
+      exports: 'named',
     },
   },
 
