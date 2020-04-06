@@ -117,7 +117,6 @@ module.exports = {
       }}),
       require('@rollup/plugin-json')({ exclude: 'node_modules/**' }),
       require('rollup-plugin-babel')({ exclude: 'node_modules/**' }),
-      require('rollup-plugin-stub')({ include: ['node_modules/@optimizely/js-sdk-event-processor/**', 'node_modules/@optimizely/js-sdk-logging/**']}),
     ],
     output: {
       format: 'umd',
