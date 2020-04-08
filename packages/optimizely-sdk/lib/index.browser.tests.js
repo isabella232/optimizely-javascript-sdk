@@ -15,7 +15,6 @@
  */
 var logging = require('@optimizely/js-sdk-logging');
 var configValidator = require('./utils/config_validator');
-var eventProcessor = require('@optimizely/js-sdk-event-processor');
 var Optimizely = require('./optimizely');
 var optimizelyFactory = require('./index.browser');
 var packageJSON = require('../package.json');
