@@ -21,7 +21,7 @@ var defaultEventDispatcher = require('./plugins/event_dispatcher/index.browser')
 var enums = require('./utils/enums');
 var eventProcessor = require('@optimizely/js-sdk-event-processor');
 var loggerPlugin = require('./plugins/logger');
-var Optimizely = require('./optimizely');
+var Optimizely = require('./optimizely').default;
 var eventProcessorConfigValidator = require('./utils/event_processor_config_validator');
 
 var logger = logging.getLogger();

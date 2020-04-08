@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2016-2019, Optimizely, Inc. and contributors                   *
+ * Copyright 2016-2020, Optimizely, Inc. and contributors                   *
  *                                                                          *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
@@ -13,25 +13,23 @@
  * See the License for the specific language governing permissions and      *
  * limitations under the License.                                           *
  ***************************************************************************/
-
-var Optimizely = require('./');
-var AudienceEvaluator = require('../core/audience_evaluator');
-var bluebird = require('bluebird');
-var bucketer = require('../core/bucketer');
-var projectConfigManager = require('../core/project_config/project_config_manager');
-var enums = require('../utils/enums');
-var eventBuilder = require('../core/event_builder/index.js');
-var eventDispatcher = require('../plugins/event_dispatcher/index.node');
-var eventProcessor = require('@optimizely/js-sdk-event-processor');
-var errorHandler = require('../plugins/error_handler');
-var fns = require('../utils/fns');
-var jsonSchemaValidator = require('../utils/json_schema_validator');
-var logger = require('../plugins/logger');
-var decisionService = require('../core/decision_service');
-var testData = require('../tests/test_data');
-var jsonSchemaValidator = require('../utils/json_schema_validator');
-var projectConfig = require('../core/project_config');
-var logging = require('@optimizely/js-sdk-logging');
+import Optimizely from './';
+import AudienceEvaluator from '../core/audience_evaluator';
+import bluebird from 'bluebird';
+import bucketer from '../core/bucketer';
+import projectConfigManager from '../core/project_config/project_config_manager';
+import enums from '../utils/enums';
+import eventBuilder from '../core/event_builder/index.js';
+import eventDispatcher from '../plugins/event_dispatcher/index.node';
+import * as eventProcessor from '@optimizely/js-sdk-event-processor';
+import errorHandler from '../plugins/error_handler';
+import fns from '../utils/fns';
+import logger from '../plugins/logger';
+import decisionService from '../core/decision_service';
+import * as testData from '../tests/test_data';
+import jsonSchemaValidator from '../utils/json_schema_validator';
+import projectConfig from '../core/project_config';
+import * as logging from '@optimizely/js-sdk-logging';
 
 var chai = require('chai');
 var assert = chai.assert;
@@ -6653,7 +6651,7 @@ describe('lib/optimizely', function() {
     });
 
     it('should instantiate the eventProcessor with the provided event flush interval and event batch size', function() {
-      optlyInstance = new Optimizely({
+      var optlyInstance = new Optimizely({
         clientEngine: 'node-sdk',
         errorHandler: errorHandler,
         eventDispatcher: eventDispatcher,

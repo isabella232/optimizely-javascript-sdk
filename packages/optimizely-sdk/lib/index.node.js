@@ -21,7 +21,7 @@ var enums = require('./utils/enums');
 var fns = require('./utils/fns');
 var jsonSchemaValidator = require('./utils/json_schema_validator');
 var loggerPlugin = require('./plugins/logger');
-var Optimizely = require('./optimizely');
+var Optimizely = require('./optimizely').default;
 var eventProcessorConfigValidator = require('./utils/event_processor_config_validator');
 
 var logger = logging.getLogger();
