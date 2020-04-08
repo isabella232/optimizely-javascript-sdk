@@ -2,7 +2,8 @@
   "name": "@github/optimizely-sdk",
   "version": "3.6.0-github.0",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
   },
   "description": "JavaScript SDK for Optimizely X Full Stack",
   "main": "lib/index.node.js",
