@@ -15,7 +15,7 @@
  ***************************************************************************/
 
 var Optimizely = require('./');
-var AudienceEvaluator = require('../core/audience_evaluator');
+var AudienceEvaluator = require('../core/audience_evaluator').default;
 var bluebird = require('bluebird');
 var bucketer = require('../core/bucketer');
 var projectConfigManager = require('../core/project_config/project_config_manager');

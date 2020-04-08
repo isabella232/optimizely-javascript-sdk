@@ -14,7 +14,7 @@
  * limitations under the License.                                           *
  ***************************************************************************/
 
-var AudienceEvaluator = require('../audience_evaluator');
+var AudienceEvaluator = require('../audience_evaluator').default;
 var bucketer = require('../bucketer');
 var enums = require('../../utils/enums');
 var fns = require('../../utils/fns');
