@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-declare module '@optimizely/optimizely-sdk' {
+declare module '@github/optimizely-sdk' {
   import { LogHandler, ErrorHandler } from '@optimizely/js-sdk-logging';
   import * as enums from '@optimizely/optimizely-sdk/lib/utils/enums';
   import * as logging from '@optimizely/optimizely-sdk/lib/plugins/logger';
