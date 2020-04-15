@@ -8,13 +8,13 @@ export default [
     input: 'lib/index.browser.js',
     output: {
       file: 'dist/optimizely.module.dev.js',
-      format: 'es'
+      format: 'es',
+      sourcemap: true,
     },
     plugins: [
-      resolve({ browser: true }),
       commonjs(),
-      terser(),
-      visualizer()
+      resolve({ browser: true }),
+      visualizer({filename: 'stats-dev.html', sourcemap: true, gzipSize: true}),
     ]
   },
   {
@@ -22,12 +22,13 @@ export default [
     output: {
       file: 'dist/optimizely.module.js',
       format: 'es',
+      sourcemap: true,
     },
     plugins: [
-      resolve({ browser: true }),
       commonjs(),
+      resolve({ browser: true }),
       terser(),
-      visualizer(),
+      visualizer({sourcemap: true, gzipSize: true}),
     ]
   }
 ]
