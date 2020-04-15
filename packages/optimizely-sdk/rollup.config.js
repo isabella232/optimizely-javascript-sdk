@@ -1,3 +1,5 @@
+import path from 'path';
+import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import { terser } from "rollup-plugin-terser";
@@ -25,6 +27,9 @@ export default [
       sourcemap: true,
     },
     plugins: [
+      alias({ entries: {
+        '@optimizely/js-sdk-logging': path.resolve(__dirname, 'ext/logging')
+      }}),
       commonjs(),
       resolve({ browser: true }),
       terser(),
