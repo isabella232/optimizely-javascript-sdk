@@ -4,6 +4,12 @@ const JAVASCRIPT_CLIENT_ENGINE = 'javascript-sdk'
 const NODE_CLIENT_ENGINE = 'node-sdk'
 const REACT_CLIENT_ENGINE = 'react-sdk'
 
+// The normal utils.sprintf accepts the format string as first param.
+// That string will be undefined for the strings stubbed by this file (ie,
+// ERROR_MESSAGES and LOG_MESSAGES, etc). So we override the sprintf function
+// to just splat out the args instead of attempting to invoke .replace on it.
+jsSdkUtils.sprintf = (...args) => args.toString()
+
 module.exports = {
   LOG_LEVEL: {
     NOTSET: 0,
