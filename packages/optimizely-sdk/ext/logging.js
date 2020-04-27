@@ -9,7 +9,7 @@ export default {
     info: () => {},
     log: () => {},
     warn: () => {},
-    error: () => {},
+    error: () => {}
   }),
   setLogHandler: () => {},
   setLogLevel: () => {}

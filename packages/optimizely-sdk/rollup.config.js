@@ -16,7 +16,7 @@ export default [
     plugins: [
       commonjs(),
       resolve({ browser: true }),
-      visualizer({filename: 'stats-dev.html', sourcemap: true, gzipSize: true}),
+      visualizer({ filename: 'stats-dev.html', sourcemap: true }),
     ]
   },
   {
@@ -33,12 +33,14 @@ export default [
         { find: './project_config_schema',
           replacement: path.resolve(__dirname, 'ext/project_config_schema.json') },
         { find: path.resolve(__dirname, 'lib/utils/config_validator/index.js'),
-          replacement: path.resolve(__dirname, 'ext/config_validator.js') }
+          replacement: path.resolve(__dirname, 'ext/config_validator.js') },
+        { find: /.*\/enums$/,
+          replacement: path.resolve(__dirname, 'ext/enums.js') }
       ]}),
       commonjs(),
       resolve({ browser: true }),
       terser(),
-      visualizer({sourcemap: true, gzipSize: true}),
+      visualizer({ sourcemap: true }),
     ]
   }
 ]
