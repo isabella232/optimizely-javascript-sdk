@@ -27,9 +27,12 @@ export default [
       sourcemap: true,
     },
     plugins: [
-      alias({ entries: {
-        '@optimizely/js-sdk-logging': path.resolve(__dirname, 'ext/logging')
-      }}),
+      alias({ entries: [
+        { find: '@optimizely/js-sdk-logging',
+          replacement: path.resolve(__dirname, 'ext/logging') },
+        { find: './project_config_schema',
+          replacement: path.resolve(__dirname, 'ext/project_config_schema.json') }
+      ]}),
       commonjs(),
       resolve({ browser: true }),
       terser(),
