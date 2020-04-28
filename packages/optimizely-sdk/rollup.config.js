@@ -16,7 +16,7 @@ export default [
     plugins: [
       commonjs(),
       resolve({ browser: true }),
-      visualizer({ filename: 'stats-dev.html', sourcemap: true }),
+      visualizer({ filename: 'stats.development.html', sourcemap: true }),
     ]
   },
   {
@@ -40,7 +40,7 @@ export default [
       commonjs(),
       resolve({ browser: true }),
       terser(),
-      visualizer({ sourcemap: true }),
+      visualizer({ filename: 'stats.production.html', sourcemap: true }),
     ]
   }
 ]

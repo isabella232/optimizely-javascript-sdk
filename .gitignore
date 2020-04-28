@@ -7,5 +7,5 @@ lerna-debug.log
 coverage/
 
 .idea/*
-stats.html
+stats.*.html
 *optimizely*.tgz
