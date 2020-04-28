@@ -9,7 +9,7 @@ export default [
   {
     input: 'lib/index.browser.js',
     output: {
-      file: 'dist/optimizely.module.dev.js',
+      file: 'dist/optimizely.module.development.js',
       format: 'es',
       sourcemap: true,
     },
@@ -22,7 +22,7 @@ export default [
   {
     input: 'lib/index.browser.js',
     output: {
-      file: 'dist/optimizely.module.js',
+      file: 'dist/optimizely.module.production.js',
       format: 'es',
       sourcemap: true,
     },
