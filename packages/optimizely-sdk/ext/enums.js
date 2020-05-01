@@ -3,6 +3,8 @@ var jsSdkUtils = require('@optimizely/js-sdk-utils')
 const JAVASCRIPT_CLIENT_ENGINE = 'javascript-sdk'
 const NODE_CLIENT_ENGINE = 'node-sdk'
 const REACT_CLIENT_ENGINE = 'react-sdk'
+const REACT_NATIVE_CLIENT_ENGINE = 'react-native-sdk'
+const REACT_NATIVE_JS_CLIENT_ENGINE = 'react-native-js-sdk'
 
 // The normal utils.sprintf accepts the format string as first param.
 // That string will be undefined for the strings stubbed by this file (ie,
@@ -38,9 +40,17 @@ module.exports = {
   JAVASCRIPT_CLIENT_ENGINE,
   NODE_CLIENT_ENGINE,
   REACT_CLIENT_ENGINE,
+  REACT_NATIVE_CLIENT_ENGINE,
+  REACT_NATIVE_JS_CLIENT_ENGINE,
   NODE_CLIENT_VERSION: '3.6.0-alpha.1',
 
-  VALID_CLIENT_ENGINES: [NODE_CLIENT_ENGINE, REACT_CLIENT_ENGINE, JAVASCRIPT_CLIENT_ENGINE],
+  VALID_CLIENT_ENGINES: [
+    NODE_CLIENT_ENGINE,
+    REACT_CLIENT_ENGINE,
+    JAVASCRIPT_CLIENT_ENGINE,
+    REACT_NATIVE_CLIENT_ENGINE,
+    REACT_NATIVE_JS_CLIENT_ENGINE,
+  ],
 
   NOTIFICATION_TYPES: jsSdkUtils.NOTIFICATION_TYPES,
 
