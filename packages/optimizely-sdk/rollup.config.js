@@ -2,7 +2,6 @@ import path from 'path';
 import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
-import { terser } from "rollup-plugin-terser";
 import visualizer from 'rollup-plugin-visualizer';
 
 export default [
@@ -39,7 +38,6 @@ export default [
       ]}),
       commonjs(),
       resolve({ browser: true }),
-      terser(),
       visualizer({ filename: 'stats.production.html', sourcemap: true }),
     ]
   }
