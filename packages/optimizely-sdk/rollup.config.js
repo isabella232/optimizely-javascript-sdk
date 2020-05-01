@@ -27,8 +27,6 @@ export default [
     },
     plugins: [
       alias({ entries: [
-        { find: '@optimizely/js-sdk-logging',
-          replacement: path.resolve(__dirname, 'ext/logging') },
         { find: './project_config_schema',
           replacement: path.resolve(__dirname, 'ext/project_config_schema.json') },
         { find: path.resolve(__dirname, 'lib/utils/config_validator/index.js'),
