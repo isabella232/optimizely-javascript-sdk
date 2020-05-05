@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import path from 'path';
 import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
@@ -24,7 +25,7 @@ import { dependencies } from './package.json';
 const BUILD_ALL = process.env.BUILD_ALL ? true : false;
 const BUILD_UMD_BUNDLE = process.env.BUILD_UMD_BUNDLE ? true : false;
 
-const getCjsConfigForPlatform = (platform) => {
+const cjsBuildFor = (platform) => {
   return {
     plugins: [
       resolve(),
@@ -41,8 +42,8 @@ const getCjsConfigForPlatform = (platform) => {
   };
 };
 
-const esModuleConfig = {
-  ... getCjsConfigForPlatform('browser'),
+const esmBundle = {
+  ...cjsBuildFor('browser'),
   output: {
     exports: 'named',
     format: 'es',
@@ -51,8 +52,8 @@ const esModuleConfig = {
   }
 }
 
-const esDevConfig = {
-  ... getCjsConfigForPlatform('browser'),
+const esmDevBundle = {
+  ...esmBundle,
   output: {
     file: 'dist/optimizely.module.development.js',
     format: 'es',
@@ -65,8 +66,8 @@ const esDevConfig = {
   ]
 }
 
-const esProdConfig = {
-  ... getCjsConfigForPlatform('browser'),
+const esmProdBundle = {
+  ...esmBundle,
   output: {
     file: 'dist/optimizely.module.production.js',
     format: 'es',
@@ -87,7 +88,7 @@ const esProdConfig = {
   ]
 }
 
-const umdconfig = {
+const umdBundle = {
   plugins: [
     resolve({ browser: true }),
     commonjs({
@@ -127,7 +128,7 @@ const umdconfig = {
 };
 
 // A separate bundle for json schema validator.
-const jsonSchemaValidatorConfig = {
+const jsonSchemaBundle = {
   plugins: [
     resolve(),
     commonjs(),
@@ -142,13 +143,22 @@ const jsonSchemaValidatorConfig = {
   }
 };
 
-export default [
-  BUILD_ALL && getCjsConfigForPlatform('node'),
-  BUILD_ALL && getCjsConfigForPlatform('browser'),
-  BUILD_ALL && getCjsConfigForPlatform('react_native'),
-  BUILD_ALL && esModuleConfig,
-  BUILD_ALL && esDevConfig,
-  BUILD_ALL && esProdConfig,
-  BUILD_ALL && jsonSchemaValidatorConfig,
-  (BUILD_ALL || BUILD_UMD_BUNDLE) && umdconfig,
-].filter(config => config);
+const bundles = {
+  'cjs-node': cjsBuildFor('node'),
+  'cjs-browser': cjsBuildFor('browser'),
+  'cjs-react-native': cjsBuildFor('react_native'),
+  'esm': esmBundle,
+  'esm-dev': esmDevBundle,
+  'esm-prod': esmProdBundle,
+  'json-schema': jsonSchemaBundle,
+  'umd': umdBundle,
+}
+
+const bundlesMatching = key => Object.entries(bundles)
+  .filter(([name, config]) => RegExp(key).test(name))
+  .map(([_, config]) => config)
+
+export default args => Object.keys(args)
+  .filter(arg => arg.startsWith('config-'))
+  .map(arg => arg.replace(/config-/, ''))
+  .flatMap(bundlesMatching)
