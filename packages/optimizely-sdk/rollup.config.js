@@ -22,30 +22,25 @@ import resolve from '@rollup/plugin-node-resolve';
 import visualizer from 'rollup-plugin-visualizer';
 import { dependencies } from './package.json';
 
-const BUILD_ALL = process.env.BUILD_ALL ? true : false;
-const BUILD_UMD_BUNDLE = process.env.BUILD_UMD_BUNDLE ? true : false;
-
-const cjsBuildFor = (platform) => {
-  return {
-    plugins: [
-      resolve(),
-      commonjs(),
-    ],
-    external: ['https', 'http', 'url'].concat(Object.keys(dependencies || {})),
-    input: `lib/index.${platform}.js`,
-    output: {
-      exports: 'named',
-      format: 'cjs',
-      file: `dist/optimizely.${platform}.min.js`,
-      plugins: [ terser() ]
-    }
-  };
-};
+const cjsBuildFor = (platform) => ({
+  plugins: [
+    resolve(),
+    commonjs(),
+    visualizer(),
+  ],
+  external: ['https', 'http', 'url'].concat(Object.keys(dependencies || {})),
+  input: `lib/index.${platform}.js`,
+  output: {
+    exports: 'named',
+    format: 'cjs',
+    file: `dist/optimizely.${platform}.min.js`,
+    plugins: [ terser() ]
+  }
+});
 
 const esmBundle = {
   ...cjsBuildFor('browser'),
   output: {
-    exports: 'named',
     format: 'es',
     file: 'dist/optimizely.browser.es.min.js',
     plugins: [ terser() ]
