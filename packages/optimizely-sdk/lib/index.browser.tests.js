@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019, Optimizely
+ * Copyright 2016-2020 Optimizely
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,19 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var logging = require('@optimizely/js-sdk-logging');
-var configValidator = require('./utils/config_validator');
-var eventProcessor = require('@optimizely/js-sdk-event-processor');
-var Optimizely = require('./optimizely');
-var optimizelyFactory = require('./index.browser');
-var packageJSON = require('../package.json');
-var testData = require('./tests/test_data');
-var eventProcessor = require('@optimizely/js-sdk-event-processor');
-var eventProcessorConfigValidator = require('./utils/event_processor_config_validator');
+import { assert } from 'chai';
+import sinon from 'sinon';
+import * as logging from '@optimizely/js-sdk-logging';
+import * as eventProcessor from '@optimizely/js-sdk-event-processor';
 
-var chai = require('chai');
-var assert = chai.assert;
-var sinon = require('sinon');
+import Optimizely from './optimizely';
+import testData from './tests/test_data';
+import packageJSON from '../package.json';
+import optimizelyFactory from './index.browser';
+import configValidator from './utils/config_validator';
+import eventProcessorConfigValidator from './utils/event_processor_config_validator';
 
 var LocalStoragePendingEventsDispatcher = eventProcessor.LocalStoragePendingEventsDispatcher;
 
@@ -147,7 +145,7 @@ describe('javascript-sdk', function() {
         optlyInstance.onReady().catch(function() {});
 
         assert.instanceOf(optlyInstance, Optimizely);
-        assert.equal(optlyInstance.clientVersion, '4.0.0-alpha.1');
+        assert.equal(optlyInstance.clientVersion, '4.0.0-rc.1');
       });
 
       it('should set the JavaScript client engine and version', function() {
