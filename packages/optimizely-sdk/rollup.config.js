@@ -40,11 +40,14 @@ const cjsBuildFor = (platform) => ({
 
 const esmBundle = {
   ...cjsBuildFor('browser'),
-  output: {
+  output: [{
+    format: 'es',
+    file: 'dist/optimizely.browser.es.js',
+  }, {
     format: 'es',
     file: 'dist/optimizely.browser.es.min.js',
     plugins: [ terser() ]
-  }
+  }]
 }
 
 const esmDevBundle = {
