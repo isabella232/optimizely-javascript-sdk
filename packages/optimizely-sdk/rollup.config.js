@@ -154,11 +154,24 @@ const bundles = {
   'umd': umdBundle,
 }
 
-const bundlesMatching = key => Object.entries(bundles)
-  .filter(([name, config]) => RegExp(key).test(name))
-  .map(([_, config]) => config)
+// Returns the bundle config matching the given pattern
+const bundlesMatching = pattern => Object.entries(bundles)
+  .reduce((bundles, [name, config]) => {
+    if (name.match(pattern)) bundles.push(config)
+    return bundles
+  }, [])
 
-export default args => Object.keys(args)
-  .filter(arg => arg.startsWith('config-'))
-  .map(arg => arg.replace(/config-/, ''))
-  .flatMap(bundlesMatching)
+// Collect all --config-* options and return the matching bundle configs
+// Builds all bundles if no --config-* option given
+//   --config-cjs will build all three cjs-* bundles
+//   --config-umd will build only the umd bundle
+//   --config-umd --config-json will build both umd and the json-schema bundles
+export default args => {
+  const patterns = Object.keys(args)
+    .filter(arg => arg.startsWith('config-'))
+    .map(arg => arg.replace(/config-/, ''))
+
+  if (!patterns.length) patterns.push(/.*/)
+
+  return patterns.flatMap(bundlesMatching)
+}
