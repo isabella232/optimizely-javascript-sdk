@@ -6,8 +6,8 @@
     "access": "public"
   },
   "description": "JavaScript SDK for Optimizely X Full Stack",
-  "module": "dist/optimizely.browser.es.min.js",
   "main": "dist/optimizely.node.min.js",
+  "module": "dist/optimizely.browser.es.js",
   "browser": "dist/optimizely.browser.min.js",
   "react-native": "dist/optimizely.react_native.min.js",
   "typings": "lib/index.d.ts",

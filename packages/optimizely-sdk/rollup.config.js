@@ -43,34 +43,17 @@ const esmBundle = {
   output: [{
     format: 'es',
     file: 'dist/optimizely.browser.es.js',
+    sourcemap: true,
   }, {
     format: 'es',
     file: 'dist/optimizely.browser.es.min.js',
+    sourcemap: true,
     plugins: [ terser() ]
   }]
 }
 
-const esmDevBundle = {
+const esmSlimBundle = {
   ...esmBundle,
-  output: {
-    file: 'dist/optimizely.module.development.js',
-    format: 'es',
-    sourcemap: true,
-  },
-  plugins: [
-    commonjs(),
-    resolve({ browser: true }),
-    visualizer({ filename: 'stats.development.html', sourcemap: true }),
-  ]
-}
-
-const esmProdBundle = {
-  ...esmBundle,
-  output: {
-    file: 'dist/optimizely.module.production.js',
-    format: 'es',
-    sourcemap: true,
-  },
   plugins: [
     alias({ entries: [
       { find: './project_config_schema',
@@ -80,10 +63,13 @@ const esmProdBundle = {
       { find: /.*\/enums$/,
         replacement: path.resolve(__dirname, 'ext/enums.js') }
     ]}),
-    commonjs(),
-    resolve({ browser: true }),
-    visualizer({ filename: 'stats.production.html', sourcemap: true }),
-  ]
+    ...esmBundle.plugins
+  ],
+  output: {
+    format: 'es',
+    file: 'dist/optimizely.browser.es.slim.js',
+    sourcemap: true,
+  },
 }
 
 const umdBundle = {
@@ -146,8 +132,7 @@ const bundles = {
   'cjs-browser': cjsBuildFor('browser'),
   'cjs-react-native': cjsBuildFor('react_native'),
   'esm': esmBundle,
-  'esm-dev': esmDevBundle,
-  'esm-prod': esmProdBundle,
+  'esm-slim': esmSlimBundle,
   'json-schema': jsonSchemaBundle,
   'umd': umdBundle,
 }
