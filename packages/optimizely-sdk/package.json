@@ -1,6 +1,6 @@
 {
   "name": "@github/optimizely-sdk",
-  "version": "4.0.0-rc.1.github",
+  "version": "4.0.0-rc.2.github",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "access": "public"

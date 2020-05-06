@@ -34,7 +34,8 @@ const cjsBuildFor = (platform) => ({
     exports: 'named',
     format: 'cjs',
     file: `dist/optimizely.${platform}.min.js`,
-    plugins: [ terser() ]
+    plugins: [ terser() ],
+    sourcemap: true,
   }
 });
 
@@ -49,6 +50,7 @@ const esmBundle = {
     file: 'dist/optimizely.browser.es.min.js',
     sourcemap: true,
     plugins: [ terser() ]
+    sourcemap: true,
   }]
 }
 
@@ -107,6 +109,7 @@ const umdBundle = {
       file: 'dist/optimizely.browser.umd.min.js',
       exports: 'named',
       plugins: [ terser() ],
+      sourcemap: true,
     },
   ],
 };
@@ -124,6 +127,7 @@ const jsonSchemaBundle = {
     format: 'cjs',
     file: 'dist/optimizely.json_schema_validator.min.js',
     plugins: [ terser() ],
+    sourcemap: true,
   }
 };
 
