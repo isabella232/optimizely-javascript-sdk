@@ -49,7 +49,7 @@ const esmBundle = {
     format: 'es',
     file: 'dist/optimizely.browser.es.min.js',
     sourcemap: true,
-    plugins: [ terser() ]
+    plugins: [ terser() ],
     sourcemap: true,
   }]
 }
