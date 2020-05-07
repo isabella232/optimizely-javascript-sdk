@@ -26,7 +26,6 @@ const cjsBuildFor = (platform) => ({
   plugins: [
     resolve(),
     commonjs(),
-    visualizer(),
   ],
   external: ['https', 'http', 'url'].concat(Object.keys(dependencies || {})),
   input: `lib/index.${platform}.js`,
@@ -54,8 +53,39 @@ const esmBundle = {
   }]
 }
 
+// ESM Bundle for browsers with all optimizely deps included
+const esmFullBundle = {
+  input: 'lib/index.browser.js',
+  external: ['https', 'http', 'url'],
+  plugins: [
+    resolve({browser: true}),
+    commonjs({
+      namedExports: {
+        '@optimizely/js-sdk-logging': [
+          'ConsoleLogHandler',
+          'getLogger',
+          'setLogLevel',
+          'LogLevel',
+          'setLogHandler',
+          'setErrorHandler',
+          'getErrorHandler',
+        ],
+        '@optimizely/js-sdk-event-processor': [
+          'LogTierV1EventProcessor',
+          'LocalStoragePendingEventsDispatcher',
+        ]
+      }
+    }),
+  ],
+  output: {
+    format: 'es',
+    file: 'dist/optimizely.browser.es.full.js',
+    sourcemap: true,
+  },
+}
+
 const esmSlimBundle = {
-  ...esmBundle,
+  ...esmFullBundle,
   plugins: [
     alias({ entries: [
       { find: './project_config_schema',
@@ -65,7 +95,8 @@ const esmSlimBundle = {
       { find: /.*\/enums$/,
         replacement: path.resolve(__dirname, 'ext/enums.js') }
     ]}),
-    ...esmBundle.plugins
+    ...esmFullBundle.plugins,
+    visualizer(),
   ],
   output: {
     format: 'es',
@@ -136,6 +167,7 @@ const bundles = {
   'cjs-browser': cjsBuildFor('browser'),
   'cjs-react-native': cjsBuildFor('react_native'),
   'esm': esmBundle,
+  'esm-full': esmFullBundle,
   'esm-slim': esmSlimBundle,
   'json-schema': jsonSchemaBundle,
   'umd': umdBundle,
