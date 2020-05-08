@@ -13,99 +13,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import path from 'path';
-import alias from '@rollup/plugin-alias';
+import { dependencies } from './package.json';
 import commonjs from '@rollup/plugin-commonjs';
 import { terser } from  'rollup-plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
-import visualizer from 'rollup-plugin-visualizer';
-import { dependencies } from './package.json';
 
-const cjsBuildFor = (platform) => ({
-  plugins: [
-    resolve(),
-    commonjs(),
-  ],
-  external: ['https', 'http', 'url'].concat(Object.keys(dependencies || {})),
-  input: `lib/index.${platform}.js`,
+const BUILD_ALL = process.env.BUILD_ALL ? true : false;
+const BUILD_UMD_BUNDLE = process.env.BUILD_UMD_BUNDLE ? true : false;
+
+const getCjsConfigForPlatform = (platform) => {
+  return {
+    plugins: [
+      resolve(),
+      commonjs(),
+    ],
+    external: ['https', 'http', 'url'].concat(Object.keys(dependencies || {})),
+    input: `lib/index.${platform}.js`,
+    output: {
+      exports: 'named',
+      format: 'cjs',
+      file: `dist/optimizely.${platform}.min.js`,
+      plugins: [ terser() ],
+      sourcemap: true,
+    }
+  };
+};
+
+const esModuleConfig = {
+  ... getCjsConfigForPlatform('browser'),
   output: {
     exports: 'named',
-    format: 'cjs',
-    file: `dist/optimizely.${platform}.min.js`,
+    format: 'es',
+    file: 'dist/optimizely.browser.es.min.js',
     plugins: [ terser() ],
     sourcemap: true,
   }
-});
-
-const esmBundle = {
-  ...cjsBuildFor('browser'),
-  output: [{
-    format: 'es',
-    file: 'dist/optimizely.browser.es.js',
-    sourcemap: true,
-  }, {
-    format: 'es',
-    file: 'dist/optimizely.browser.es.min.js',
-    sourcemap: true,
-    plugins: [ terser() ],
-    sourcemap: true,
-  }]
 }
 
-// ESM Bundle for browsers with all optimizely deps included
-const esmFullBundle = {
-  input: 'lib/index.browser.js',
-  external: ['https', 'http', 'url'],
-  plugins: [
-    resolve({browser: true}),
-    commonjs({
-      namedExports: {
-        '@optimizely/js-sdk-logging': [
-          'ConsoleLogHandler',
-          'getLogger',
-          'setLogLevel',
-          'LogLevel',
-          'setLogHandler',
-          'setErrorHandler',
-          'getErrorHandler',
-        ],
-        '@optimizely/js-sdk-event-processor': [
-          'LogTierV1EventProcessor',
-          'LocalStoragePendingEventsDispatcher',
-        ]
-      }
-    }),
-  ],
-  output: {
-    format: 'es',
-    file: 'dist/optimizely.browser.es.full.js',
-    sourcemap: true,
-  },
-}
-
-const esmSlimBundle = {
-  ...esmFullBundle,
-  plugins: [
-    alias({ entries: [
-      { find: './project_config_schema',
-        replacement: path.resolve(__dirname, 'ext/project_config_schema.json') },
-      { find: path.resolve(__dirname, 'lib/utils/config_validator/index.js'),
-        replacement: path.resolve(__dirname, 'ext/config_validator.js') },
-      { find: /.*\/enums$/,
-        replacement: path.resolve(__dirname, 'ext/enums.js') }
-    ]}),
-    ...esmFullBundle.plugins,
-    visualizer(),
-  ],
-  output: {
-    format: 'es',
-    file: 'dist/optimizely.browser.es.slim.js',
-    sourcemap: true,
-  },
-}
-
-const umdBundle = {
+const umdconfig = {
   plugins: [
     resolve({ browser: true }),
     commonjs({
@@ -146,7 +91,7 @@ const umdBundle = {
 };
 
 // A separate bundle for json schema validator.
-const jsonSchemaBundle = {
+const jsonSchemaValidatorConfig = {
   plugins: [
     resolve(),
     commonjs(),
@@ -162,35 +107,11 @@ const jsonSchemaBundle = {
   }
 };
 
-const bundles = {
-  'cjs-node': cjsBuildFor('node'),
-  'cjs-browser': cjsBuildFor('browser'),
-  'cjs-react-native': cjsBuildFor('react_native'),
-  'esm': esmBundle,
-  'esm-full': esmFullBundle,
-  'esm-slim': esmSlimBundle,
-  'json-schema': jsonSchemaBundle,
-  'umd': umdBundle,
-}
-
-// Returns the bundle config matching the given pattern
-const bundlesMatching = pattern => Object.entries(bundles)
-  .reduce((bundles, [name, config]) => {
-    if (name.match(pattern)) bundles.push(config)
-    return bundles
-  }, [])
-
-// Collect all --config-* options and return the matching bundle configs
-// Builds all bundles if no --config-* option given
-//   --config-cjs will build all three cjs-* bundles
-//   --config-umd will build only the umd bundle
-//   --config-umd --config-json will build both umd and the json-schema bundles
-export default args => {
-  const patterns = Object.keys(args)
-    .filter(arg => arg.startsWith('config-'))
-    .map(arg => arg.replace(/config-/, ''))
-
-  if (!patterns.length) patterns.push(/.*/)
-
-  return patterns.flatMap(bundlesMatching)
-}
+export default [
+  BUILD_ALL && getCjsConfigForPlatform('node'),
+  BUILD_ALL && getCjsConfigForPlatform('browser'),
+  BUILD_ALL && getCjsConfigForPlatform('react_native'),
+  BUILD_ALL && esModuleConfig,
+  BUILD_ALL && jsonSchemaValidatorConfig,
+  (BUILD_ALL || BUILD_UMD_BUNDLE) && umdconfig,
+].filter(config => config);
