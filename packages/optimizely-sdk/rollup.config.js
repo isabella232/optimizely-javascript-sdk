@@ -41,13 +41,18 @@ const getCjsConfigForPlatform = (platform) => {
 
 const esModuleConfig = {
   ... getCjsConfigForPlatform('browser'),
-  output: {
+  output: [{
+    exports: 'named',
+    format: 'es',
+    file: 'dist/optimizely.browser.es.js',
+    sourcemap: true,
+  },{
     exports: 'named',
     format: 'es',
     file: 'dist/optimizely.browser.es.min.js',
     plugins: [ terser() ],
     sourcemap: true,
-  }
+  }]
 }
 
 const umdconfig = {
