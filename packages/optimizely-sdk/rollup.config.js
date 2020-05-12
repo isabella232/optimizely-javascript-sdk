@@ -17,6 +17,7 @@ import { dependencies } from './package.json';
 import commonjs from '@rollup/plugin-commonjs';
 import { terser } from  'rollup-plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
+import visualize from 'rollup-plugin-visualizer';
 
 const BUILD_ALL = process.env.BUILD_ALL ? true : false;
 const BUILD_UMD_BUNDLE = process.env.BUILD_UMD_BUNDLE ? true : false;
@@ -41,6 +42,11 @@ const getCjsConfigForPlatform = (platform) => {
 
 const esModuleConfig = {
   ... getCjsConfigForPlatform('browser'),
+  plugins: [
+    resolve(),
+    commonjs(),
+    visualize(),
+  ],
   output: [{
     exports: 'named',
     format: 'es',
