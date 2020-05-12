@@ -48,6 +48,10 @@ const esModuleConfig = {
     alias({ entries: [
       { find: /.*\/utils\/config_validator/,
         replacement: path.resolve(__dirname, 'ext/validator') },
+      { find: /.*\/utils\/event_processor_config_validator/,
+        replacement: path.resolve(__dirname, 'ext/validator') },
+      { find: /.*\/utils\/string_value_validator/,
+        replacement: path.resolve(__dirname, 'ext/validator') },
       { find: /.*\/utils\/user_profile_service_validator/,
         replacement: path.resolve(__dirname, 'ext/validator') },
       { find: /.*\/enums$/,
