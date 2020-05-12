@@ -1,5 +1,5 @@
 /**
- * Copyright 2019, Optimizely
+ * Copyright 2019-2020 Optimizely
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,25 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import sinon from 'sinon';
+import { assert } from 'chai';
+import { cloneDeep } from 'lodash';
+import { sprintf } from '@optimizely/js-sdk-utils';
+import * as logging from '@optimizely/js-sdk-logging';
+import * as datafileManager from '@optimizely/js-sdk-datafile-manager';
 
-var assert = require('chai').assert;
-var datafileManager = require('@optimizely/js-sdk-datafile-manager');
-var logging = require('@optimizely/js-sdk-logging');
-var sinon = require('sinon');
-var cloneDeep = require('lodash/cloneDeep');
-var sprintf = require('@optimizely/js-sdk-utils').sprintf;
-var enums = require('../../utils/enums');
-var jsonSchemaValidator = require('../../utils/json_schema_validator');
-var projectConfig = require('./index');
-var optimizelyConfig = require('../optimizely_config/index');
-var projectConfigManager = require('./project_config_manager');
-var testData = require('../../tests/test_data');
-
-var ERROR_MESSAGES = enums.ERROR_MESSAGES;
-var LOG_MESSAGES = enums.LOG_MESSAGES;
+import projectConfig from './index';
+import { ERROR_MESSAGES, LOG_MESSAGES } from '../../utils/enums';
+import testData from '../../tests/test_data';
+import * as optimizelyConfig from '../optimizely_config/index';
+import projectConfigManager from './project_config_manager';
+import jsonSchemaValidator from '../../utils/json_schema_validator';
 
 describe('lib/core/project_config/project_config_manager', function() {
   var globalStubErrorHandler;
+  var stubLogHandler;
   beforeEach(function() {
     sinon.stub(datafileManager, 'HttpPollingDatafileManager').returns({
       start: sinon.stub(),
@@ -59,7 +57,6 @@ describe('lib/core/project_config/project_config_manager', function() {
 
   it('should call the error handler and fulfill onReady with an unsuccessful result if neither datafile nor sdkKey are passed into the constructor', function() {
     var manager = new projectConfigManager.ProjectConfigManager({
-      skipJSONValidation: true,
     });
     sinon.assert.calledOnce(globalStubErrorHandler.handleError);
     var errorMessage = globalStubErrorHandler.handleError.lastCall.args[0].message;
@@ -75,7 +72,6 @@ describe('lib/core/project_config/project_config_manager', function() {
     var invalidDatafileJSON = 'abc';
     var manager = new projectConfigManager.ProjectConfigManager({
       datafile: invalidDatafileJSON,
-      skipJSONValidation: true,
     });
     sinon.assert.calledOnce(globalStubErrorHandler.handleError);
     var errorMessage = globalStubErrorHandler.handleError.lastCall.args[0].message;
@@ -131,20 +127,18 @@ describe('lib/core/project_config/project_config_manager', function() {
       jsonSchemaValidator.validate.restore();
     });
 
-    it('should skip JSON schema validation if skipJSONValidation is passed into instance args with `true` value', function() {
+    it('should skip JSON schema validation if jsonSchemaValidator is not provided', function() {
       var manager = new projectConfigManager.ProjectConfigManager({
         datafile: testData.getTestProjectConfig(),
-        skipJSONValidation: true,
       });
       sinon.assert.notCalled(jsonSchemaValidator.validate);
       return manager.onReady();
     });
 
-    it('should not skip JSON schema validation if skipJSONValidation is passed into instance args with any value other than true', function() {
+    it('should not skip JSON schema validation if jsonSchemaValidator is provided', function() {
       var manager = new projectConfigManager.ProjectConfigManager({
         datafile: testData.getTestProjectConfig(),
         jsonSchemaValidator: jsonSchemaValidator,
-        skipJSONValidation: 'hi',
       });
       sinon.assert.calledOnce(jsonSchemaValidator.validate);
       sinon.assert.calledOnce(stubLogHandler.log);

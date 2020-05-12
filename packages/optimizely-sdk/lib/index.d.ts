@@ -49,7 +49,6 @@ declare module '@github/optimizely-sdk' {
       | enums.LOG_LEVEL.INFO
       | enums.LOG_LEVEL.NOTSET
       | enums.LOG_LEVEL.WARNING;
-    skipJSONValidation?: boolean;
     jsonSchemaValidator?: object;
     userProfileService?: UserProfileService | null;
     eventBatchSize?: number;
