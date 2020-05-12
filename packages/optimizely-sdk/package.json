@@ -23,7 +23,7 @@
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
     "prepare": "npm run build",
     "postversion": "git commit -m v$npm_package_version -- package*.json",
-    "prepublishOnly": "npm run build && npm test && npm run test-xbrowser && npm run test-umdbrowser"
+    "prepublishOnly": "npm test && npm run test-ci"
   },
   "repository": {
     "type": "git",
