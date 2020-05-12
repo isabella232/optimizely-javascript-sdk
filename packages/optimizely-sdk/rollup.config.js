@@ -50,6 +50,8 @@ const esModuleConfig = {
         replacement: path.resolve(__dirname, 'ext/validator') },
       { find: /.*\/utils\/user_profile_service_validator/,
         replacement: path.resolve(__dirname, 'ext/validator') },
+      { find: /.*\/enums$/,
+        replacement: path.resolve(__dirname, 'ext/enums') }
     ]}),
     resolve(),
     commonjs(),
