@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import path from 'path';
 import { dependencies } from './package.json';
+import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
 import { terser } from  'rollup-plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
@@ -43,6 +45,10 @@ const getCjsConfigForPlatform = (platform) => {
 const esModuleConfig = {
   ... getCjsConfigForPlatform('browser'),
   plugins: [
+    alias({ entries: [
+      { find: /.*\/utils\/config_validator/,
+        replacement: path.resolve(__dirname, 'ext/config_validator.js') },
+    ]}),
     resolve(),
     commonjs(),
     visualize(),
