@@ -46,13 +46,7 @@ const esModuleConfig = {
   ... getCjsConfigForPlatform('browser'),
   plugins: [
     alias({ entries: [
-      { find: /.*\/utils\/config_validator/,
-        replacement: path.resolve(__dirname, 'ext/validator') },
-      { find: /.*\/utils\/event_processor_config_validator/,
-        replacement: path.resolve(__dirname, 'ext/validator') },
-      { find: /.*\/utils\/string_value_validator/,
-        replacement: path.resolve(__dirname, 'ext/validator') },
-      { find: /.*\/utils\/user_profile_service_validator/,
+      { find: /.*\/utils\/(config|event_processor_config|string_value|user_profile_service)_validator/,
         replacement: path.resolve(__dirname, 'ext/validator') },
       { find: /.*\/enums$/,
         replacement: path.resolve(__dirname, 'ext/enums') }
