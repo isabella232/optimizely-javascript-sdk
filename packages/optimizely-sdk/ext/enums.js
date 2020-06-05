@@ -1,4 +1,4 @@
-var jsSdkUtils = require('@optimizely/js-sdk-utils')
+const NOTIFICATION_TYPES = require('@optimizely/js-sdk-utils').NOTIFICATION_TYPES
 
 const JAVASCRIPT_CLIENT_ENGINE = 'javascript-sdk'
 const NODE_CLIENT_ENGINE = 'node-sdk'
@@ -6,11 +6,7 @@ const REACT_CLIENT_ENGINE = 'react-sdk'
 const REACT_NATIVE_CLIENT_ENGINE = 'react-native-sdk'
 const REACT_NATIVE_JS_CLIENT_ENGINE = 'react-native-js-sdk'
 
-// The normal utils.sprintf accepts the format string as first param.
-// That string will be undefined for the strings stubbed by this file (ie,
-// ERROR_MESSAGES and LOG_MESSAGES, etc). So we override the sprintf function
-// to just splat out the args instead of attempting to invoke .replace on it.
-jsSdkUtils.sprintf = (...args) => args.toString()
+const allEmptyString = new Proxy({}, { get: () => '%s; %s; %s' });
 
 module.exports = {
   LOG_LEVEL: {
@@ -21,9 +17,9 @@ module.exports = {
     ERROR: 4
   },
 
-  ERROR_MESSAGES: {},
+  ERROR_MESSAGES: allEmptyString,
 
-  LOG_MESSAGES: {},
+  LOG_MESSAGES: allEmptyString,
 
   RESERVED_EVENT_KEYWORDS: {
     REVENUE: 'revenue',
@@ -52,7 +48,7 @@ module.exports = {
     REACT_NATIVE_JS_CLIENT_ENGINE,
   ],
 
-  NOTIFICATION_TYPES: jsSdkUtils.NOTIFICATION_TYPES,
+  NOTIFICATION_TYPES,
 
   DECISION_NOTIFICATION_TYPES: {
     AB_TEST: 'ab-test',
